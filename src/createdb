@@ -1,0 +1,105 @@
+use st2;
+create table services(
+    code int primary key ,
+    name nvarchar,
+    cost float,
+    time int,
+    timeOut int
+);
+create table insurances(
+    inn nvarchar primary key ,
+    name nvarchar,
+    bik nvarchar,
+    ps nvarchar,
+    country nvarchar,
+    address nvarchar
+);
+create table socialTypes(
+    title nvarchar primary key
+);
+create table socials(
+    number nvarchar primary key ,
+    type nvarchar,
+    insurance_inn nvarchar,
+    foreign key (insurance_inn) references insurances(inn),
+    foreign key (type) references socialTypes(title)
+);
+create table users(
+    id int primary key ,
+    login nvarchar,
+    password nvarchar,
+    first_name nvarchar,
+    last_name nvarchar,
+    ip nvarchar
+);
+create table patients(
+    guid nvarchar primary key,
+    ein nvarchar,
+    pass_s nvarchar,
+    pass_n nvarchar,
+    social nvarchar,
+    email nvarchar,
+    phone nvarchar,
+    birthday time,
+    ua nvarchar,
+    user_id int,
+    foreign key (social) references socials(number),
+    foreign key (user_id) references users(id)
+);
+
+create table bloods(
+    id int primary key ,
+    patient nvarchar,
+    barcode nvarchar,
+    date date,
+    foreign key (patient) references patients(guid)
+);
+
+create table employeeType(
+    title nvarchar primary key
+);
+create table employees(
+    id int primary key ,
+    lastEnter date,
+    type nvarchar,
+    user_id int,
+    foreign key (type) references employeeType(title),
+    foreign key (user_id) references users(id)
+);
+create table employeeServices(
+    employee int,
+    service int,
+    foreign key (employee) references employees(id),
+    foreign key (service) references services(code)
+);
+create table analyzers(
+    title nvarchar primary key
+);
+create table service_statuses(
+    title nvarchar primary key
+);
+create table orders(
+    id int primary key ,
+    blood int,
+    employee int,
+    service int,
+    service_status nvarchar,
+    status bit,
+    result float,
+    analyzer nvarchar,
+    foreign key (blood) references bloods(id),
+    foreign key (employee) references employees(id),
+    foreign key (service) references services(code),
+    foreign key (service_status) references service_statuses(title),
+    foreign key (analyzer) references analyzers(title)
+);
+create table accounting_statement(
+    id int primary key ,
+    order_id int,
+    employee_id int,
+    insurance_inn nvarchar,
+    amount_cost int,
+    foreign key (order_id) references orders(id),
+    foreign key (employee_id) references employees(id),
+    foreign key (insurance_inn) references insurances(inn)
+);

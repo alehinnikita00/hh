@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.TextFlow?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="Controller.LoginController"
+      prefHeight="400.0" prefWidth="600.0">
+    <HBox>
+        <TextField fx:id="loginField" ></TextField>
+        <Label></Label>
+    </HBox>
+    <HBox>
+        <PasswordField fx:id="passFiled"></PasswordField>
+        <Label></Label>
+    </HBox>
+    <Button fx:id="loginButton" onAction="#login">Login</Button>
+</VBox>
