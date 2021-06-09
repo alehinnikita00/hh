@@ -15,7 +15,7 @@ public class Dao {
 
 
     public Connection getConnection() throws Exception{
-        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/st2", "root", "");
+        Connection connection = DriverManager.getConnection("jdbc:sqlserver://192.168.101.9:1433;databaseName=st2;user=Студент;password=1");
         return connection;
     }
     public void closeConnection(Connection connection) throws Exception{
