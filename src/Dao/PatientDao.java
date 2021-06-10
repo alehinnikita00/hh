@@ -7,6 +7,8 @@ import Model.User;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PatientDao extends Dao{
     public PatientDao() {
@@ -50,5 +52,24 @@ public class PatientDao extends Dao{
         }
         connection.close();
         return patient;
+    }
+    public List<Patient> getPatientByName(String fname, String lname) throws Exception{
+        List<Patient> patients = new ArrayList<>();
+        Connection connection = getConnection();
+        Statement statement = connection.createStatement();
+        UserDao userDao = new UserDao();
+        SocialDao socialDao = new SocialDao();
+        List<User> users = userDao.getByFnameLame(fname, lname);
+        for (int i = 0; i < users.stream().count(); i++){
+            ResultSet rs = statement.executeQuery("select * from patients where user_id ="+ users.get(i).getId());
+            while (rs.next()){
+                patients.add(new Patient(rs.getString("guid"), users.get(i), socialDao.getOneByNumber(rs.getString("social")),
+                        rs.getString("ein"), rs.getString("pass_s"), rs.getString("pass_n"),
+                        rs.getString("email"), rs.getString("phone"), rs.getString("ua")));
+            }
+        }
+
+        connection.close();
+        return patients;
     }
 }

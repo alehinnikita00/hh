@@ -11,7 +11,12 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 
-public class Main extends Application {
+public class Main extends Application implements Runnable {
+
+    @Override
+    public void init() throws Exception {
+        super.init();
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -19,6 +24,9 @@ public class Main extends Application {
         view.changeStage("laborant.fxml");
         primaryStage = view.getStage();
         primaryStage.show();
+    }
+    public void run(){
+
     }
 
 

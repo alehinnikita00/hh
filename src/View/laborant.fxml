@@ -8,21 +8,20 @@
 
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <HBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="Controller.LaborantController"
-      prefHeight="400.0" prefWidth="600.0">
-    <VBox>
-        <VBox>
-            <ImageView/>
-            <Label text="name"/>
-            <Button text="options"/>
-        </VBox>
-        <VBox>
-            <Button text="Заказы"/>
-            <Button text="Создать заказ"/>
-            <Button text="Создать отчёт"/>
-        </VBox>
-    </VBox>
-    <Pane />
+      minHeight="500"
+      prefHeight="500.0" prefWidth="600.0"
+    stylesheets="@resources/main.css">
+    <VBox fx:id="fontMenu" prefWidth="230">
+        <ImageView><Image url="@resources/laborant_1.jpeg"/></ImageView>
+        <Label text="name"/>
+        <Button styleClass="profile" text="options"/>
+        <Button styleClass="btn" text="Создать пациента" onAction="#createPatient"/>
+        <Button fx:id="createOrder" onAction="#createOrders" styleClass="btn" text="Создать заказ"/>
+        <Button styleClass="btn" text="Создать отчёт"/>
+    </VBox >
+    <VBox prefWidth="1000" fx:id="pane"/>
 </HBox>

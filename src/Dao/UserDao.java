@@ -5,6 +5,8 @@ import Model.User;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDao extends Dao{
 
@@ -40,6 +42,30 @@ public class UserDao extends Dao{
         }
         connection.close();
         return user;
+    }
+    public List<User> getByFnameLame(String fname, String lname) throws Exception{
+        List<User> users = new ArrayList<>();
+        Connection connection = super.getConnection();
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery("select * from users where first_name like '%" + fname + "%' and last_name like '%" + lname + "%' limit 10");
+        while (rs.next()){
+            users.add( new User(rs.getInt("id"), rs.getString("login"), rs.getString("password"),
+                    rs.getString("first_name"), rs.getString("last_name"), rs.getString("ip")));
+        }
+        connection.close();
+        return users;
+    }
+    public int getLastId() throws Exception{
+        User user = null;
+        Connection connection = super.getConnection();
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery("select * from users order by id  desc  limit 1  ");
+        while (rs.next()){
+            user = new User(rs.getInt("id"), rs.getString("login"), rs.getString("password"),
+                    rs.getString("first_name"), rs.getString("last_name"), rs.getString("ip"));
+        }
+        connection.close();
+        return user.getId();
     }
 
 }

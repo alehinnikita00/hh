@@ -1,0 +1,15 @@
+.btn{
+    -fx-background-color: "rgb(118, 227, 131)";
+    -fx-text-fill: "white";
+    -fx-min-width: 230;
+    -fx-min-height: 80;
+    -fx-border-color: "rgb(73, 140,81)";
+    -fx-font-size: 18;
+}
+.profile{
+    -fx-background-color: "rgb(73,140,81)";
+    -fx-min-height: 40;
+    -fx-font-size: 18;
+    -fx-text-fill: "white";
+    -fx-border-color: "rgb(118, 227,131)";
+}
